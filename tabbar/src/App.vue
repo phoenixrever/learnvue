@@ -1,0 +1,24 @@
+<template>
+  <div id="app">
+    <router-view></router-view>
+    <main-tab-bar></main-tab-bar>
+  </div>
+</template>
+<script>
+  import MainTabBar from '@/components/tabbar/MainTabBar'
+
+  import '@/assets/css/base.css';
+
+  export default {
+    name: 'App',
+    data() {
+      return {}
+    },
+    components: {
+      MainTabBar
+    }
+  }
+</script>
+<style>
+
+</style>
