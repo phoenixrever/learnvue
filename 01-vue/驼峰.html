@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+<!--    cInfo是获取不到值的-->
+    <cpn :c-info="cInfo"></cpn>
+</div>
+<template id="cpn">
+    <div>{{cInfo}}</div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+    const child=Vue.component('cpn',{
+        template:'#cpn',
+        props:{
+            cInfo:{
+                type: String,
+                default(){
+                    return "son"
+                }
+            }
+        }
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            cInfo:"father"
+        },
+        created() {
+
+        },
+        methods: {}
+    })
+</script>
+</body>
+</html>

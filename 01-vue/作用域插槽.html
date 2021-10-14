@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <cpn></cpn>
+    <cpn>
+        <template  v-slot="slotProps">
+<!--            <span v-for="item in slotProps.slotdata">{{item}}-</span>-->
+            <span>{{slotProps.slotdata.join('-')}}</span>
+        </template>
+    </cpn>
+    <cpn></cpn>
+</div>
+<template id="cpn">
+    <div>
+        <!--        作用域插槽-->
+<!--        坑 这边用- 上面使用就必须用驼峰  这边用驼峰 上面必须全小写使用-->
+        <slot v-bind:slotdata="data">
+            <ul>
+                <li v-for="item in data">{{item}}</li>
+            </ul>
+        </slot>
+        <hr>
+    </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {},
+        components: {
+            cpn: {
+                template: '#cpn',
+                data() {
+                    return {
+                        data: ['meat', 'fruit', 'hotdog', 'banana', 'apple'],
+                    }
+                }
+            }
+        },
+    })
+</script>
+</body>
+</html>

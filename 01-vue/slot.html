@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <cpn></cpn>
+    <cpn ><span slot="slotName">slot 2</span></cpn>
+    <cpn ><span slot="slotName">slot 3</span></cpn>
+</div>
+<template id="cpn">
+    <div>
+<!--        默认替换没有名字的slot-->
+        <slot>默认值</slot>
+        <slot name="slotName">默认值</slot>
+        <slot>默认值</slot>
+        <hr>
+<!--        作用域插槽-->
+        <ul>
+            <li v-for="item in data">{{item}}</li>
+        </ul>
+    </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {},
+        components:{
+            cpn:{
+                template:'#cpn',
+                data(){
+                    return {
+                        data:['meat','fruit','hotdog','banana','apple']
+                    }
+                }
+            }
+        },
+        created() {
+
+        },
+        methods: {}
+    })
+</script>
+</body>
+</html>

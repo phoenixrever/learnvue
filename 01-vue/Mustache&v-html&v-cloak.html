@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .active {
+            color: red
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1 v-html="message"></h1>
+    <h1 v-text="message"></h1>
+    <!--    v-cloak在js解析之后消失 利用这一点在消失前做点事,比如display:none -->
+    <h1 v-cloak>{{message}}</h1>
+    <!--    v-once  只会渲染一次,不会跟随data值改变而刷新-->
+    <h1 v-once>{{message}}</h1>
+    <!--    多个对象属性  class会被合并 class="title active second"-->
+    <h1 class="title" :class="{active:isActive,second:isTrue}">{{message}}</h1>
+    <h1 class="title" :class="['active','second']">{{message}}</h1>
+    <ul>
+        <li v-for="(l,index) in list" :class="{active:currentIndex===index}" @click="change(index)">{{l}}</li>
+    </ul>
+    <h2>{{fullname}}</h2>
+    <h2>{{getset}}</h2>
+
+    <ul>
+        <!-- 这里key值不能是index 因为插入过程中index会变化 item值才一一对应 -->
+        <li v-for="(item,index) in animals" :key="item">{{item}}</li>
+    </ul>
+    <button @click="btnClick">click</button>
+    <input type="radio" id="male" name="sex" value="男" v-model="sex">
+    <input type="radio"  id="femal" name="sex" value="女" v-model="sex">
+
+</div>
+    <hr>
+    <template id="cpn">
+        <div>{{cInfo}}</div>
+    </template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const child=Vue.component('cpn',{
+        template:'#cpn',
+        props:{
+            cInfo:{
+                type: String,
+                default(){
+                    return "son"
+                }
+            }
+        }
+    });
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '<a href="sssssssssss" style="color: darkred">v-html</a>',
+            isActive: true,
+            isTrue: true,
+            list:['cat','dog','monkey','snake','boob'],
+            animals:['cat','dog','monkey','snake','boob'],
+            currentIndex:0,
+            firstname:'shadow',
+            lastname:'silent',
+            numbers:[1,2,3,4,5,6,7,8,9],
+            sex:'',
+            cInfo:"fathxxxxxxxxxxxxxxxer"
+        },
+        computed:{
+            fullname:function(){
+                return this.firstname+this.lastname
+            },
+            getset:{
+              set:function (newValue) {
+
+              },
+              get:function () {
+                  return this.firstname+this.lastname
+              }
+            }
+        },
+        created() {
+
+        },
+        methods: {
+            change(e){
+                console.log(e);
+                this.currentIndex=e
+            },
+            btnClick(){
+                //push可以改变刷新dom
+                // this.animals.push("aa");
+
+                //数组头元素添加元素 可以改变刷新dom
+                // this.animals.unshift("women");
+
+                // 改变数组值不能刷新dom
+                // this.animals[0]="gazila"
+
+                //pop 移除尾元素 可以改变刷新dom
+                // this.animals.pop();
+
+                //shift 移除头元素  可以改变刷新dom
+                // this.animals.shift();
+
+
+                //可以改变刷新dom
+                // this.animals.sort();
+
+                //reverse 反转元素位置 可以改变刷新dom
+                // this.animals.reverse();
+
+                // 可以刷新dom
+                // this.animals.splice(1,1) //从1开始删除1个
+                // 可以用次方法改变数组的值  等于改变元素的值
+                // this.animals.splice(1,1,"pussy");//从1开始删除1个 并加上新元素
+                // this.animals.splice(1,0,"bird");//从1开始加上新元素
+                // Vue.set(this.animals,0,"vue.set方法修改值可以刷新")
+
+                //Returns the elements of an array that meet the condition specified in a callback function
+                // let newAnimals = this.animals.filter(x=>{
+                //         return x==='bird';
+                // });
+
+                //Calls a defined callback function on each element of an array,
+                // and returns an array that contains the results.
+                // let newAnimals = this.animals.map(x=>{
+                //     return x+'_add'
+                // });
+
+                /**
+                 * 计算[1,2,3,4,5,6,7,8,9] 的值 45
+                 * @param1 preValue 前一次遍历返回的值
+                 * @param2 n 每一次遍历数组的值
+                 * @param3 0 preValue 初始值
+                 */
+                let newAnimals = this.numbers.reduce((preValue,n)=>preValue+n);
+                console.log(newAnimals);
+
+            }
+        }
+
+
+    })
+
+</script>
+</body>
+</html>

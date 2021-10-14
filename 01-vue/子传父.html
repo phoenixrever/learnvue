@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--    cInfo是获取不到值的-->
+    <cpn  @son-pass-value="sonPassValue"></cpn>
+    <h1>{{son}}</h1>
+</div>
+<template id="cpn">
+    <button @click="sonClick">son</button>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+    const child = Vue.component('cpn', {
+        template: '#cpn',
+        data() {
+            return {
+                son: "son data"
+            }
+        },
+        methods: {
+            sonClick(data){
+                this.$emit("son-pass-value",data)
+            }
+        }
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            son: "father"
+        },
+        created() {
+
+        },
+        methods: {
+            sonPassValue(data){
+                console.log(data);
+                this.son=data
+            }
+        }
+    })
+</script>
+</body>
+</html>
